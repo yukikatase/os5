@@ -72,8 +72,10 @@ int timer_handler() {
   out8(0x20, 0x60);	/* タイマー割り込み (IRQ0) を再度有効にする */
   timer_counter++;
 
-  if (running_thread == idle && blue_ends == 0)
+  if (running_thread == idle && blue_ends == 0 && timer_counter % 4 == 1)
     thread = blue;
+  else if(running_thread == idle && yellow_ends == 0 && timer_counter % 4 == 3)
+    thread = yellow;
   else
     thread = idle;
 
